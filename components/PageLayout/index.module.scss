@@ -1,0 +1,11 @@
+.pageLayout {
+    width: 900px;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 900px) {
+    .pageLayout {
+        width: 100%;
+        padding: 0 14px;
+    }
+}
