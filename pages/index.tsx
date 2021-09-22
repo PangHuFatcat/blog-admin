@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Button } from 'antd'
-import PageLayout from '../components/PageLayout'
+import PageLayout from 'components/PageLayout'
 
 const Home: NextPage = () => {
     return (

@@ -1,0 +1,15 @@
+.login {
+    width: 300px;
+    margin: 0 auto;
+    padding-top: 50%;
+}
+
+.loginBtn {
+    width: 100%;
+}
+
+@media only screen and (max-width: 900px) {
+    .login {
+        width: 100%;
+    }
+}
