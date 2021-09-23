@@ -3,7 +3,7 @@ declare namespace API {
 
         code: number
         msg: string
-        data: T
+        data?: T
     }
 
     namespace Post {
@@ -19,6 +19,11 @@ declare namespace API {
         interface Info {
             name: string
             icon: string
+        }
+
+        interface Login {
+            account: string
+            password: string
         }
 
         interface Logged {

@@ -2,21 +2,31 @@ import type { NextPage } from 'next'
 import LoginLayout from 'components/LoginLayout'
 import { Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import api from 'api/index'
 import styles from './index.module.scss'
+import { useState } from 'react'
 
 const Home: NextPage = () => {
-    const onFinish = (values: any) => {
-        console.log('Received values of form: ', values)
+    const [loading, setLoading] = useState(false)
+
+    const onFinish = async (values: API.User.Login) => {
+        setLoading(true)
+
+        const res = await api.user.postLogin(values)
+        if (!res) return
+
+        console.log(res)
+        setLoading(false)
     }
     return (
         <LoginLayout>
             <Form
-                name="normal_login"
+                name="login"
                 className={styles.login}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
             >
-                <Form.Item name="username" rules={[{ required: true, message: '请输入您的账号!' }]}>
+                <Form.Item name="account" rules={[{ required: true, message: '请输入您的账号!' }]}>
                     <Input prefix={<UserOutlined />} placeholder="账号" />
                 </Form.Item>
 
