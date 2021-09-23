@@ -24,7 +24,9 @@ const Header = (props: PropsWithChildren<Props>) => {
             <Dropdown
                 overlay={
                     <Menu>
-                        <Menu.Item icon={<LoginOutlined />}>退出登录</Menu.Item>
+                        <Menu.Item key="settifs1" icon={<LoginOutlined />}>
+                            退出登录
+                        </Menu.Item>
                     </Menu>
                 }
                 placement="bottomLeft"
