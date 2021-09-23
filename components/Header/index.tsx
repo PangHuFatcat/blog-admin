@@ -1,30 +1,43 @@
 import React, { PropsWithChildren } from 'react'
 import { Menu, Dropdown } from 'antd'
-import { BookOutlined, LoginOutlined, SettingOutlined } from '@ant-design/icons'
+import { BookOutlined, LoginOutlined, FileTextOutlined } from '@ant-design/icons'
 import { Avatar } from 'antd'
+import { useRouter } from 'next/router'
+import { MenuInfo } from 'rc-menu/lib/interface'
 import styles from './index.module.scss'
-
-const { SubMenu } = Menu
 
 interface Props {}
 
 const Header = (props: PropsWithChildren<Props>) => {
+    const router = useRouter()
+
+    const { pathname } = router
+
+    const handleClick = ({ key }: MenuInfo) => {
+        if (pathname === key) return
+        router.push(key)
+    }
+
     return (
         <div className={styles.header}>
             <div></div>
-            <Menu mode="horizontal" className={styles.menu}>
-                <Menu.Item key="mail" icon={<BookOutlined />}>
+            <Menu
+                mode="horizontal"
+                className={styles.menu}
+                defaultSelectedKeys={[pathname]}
+                onClick={handleClick}
+            >
+                <Menu.Item key="/" icon={<FileTextOutlined />}>
                     帖子管理
                 </Menu.Item>
-                <SubMenu key="SubMenu" icon={<SettingOutlined />} title="配置管理">
-                    <Menu.Item key="setting:1">后台</Menu.Item>
-                    <Menu.Item key="setting:2">博客</Menu.Item>
-                </SubMenu>
+                <Menu.Item key="/resume" icon={<BookOutlined />}>
+                    简历管理
+                </Menu.Item>
             </Menu>
             <Dropdown
                 overlay={
                     <Menu>
-                        <Menu.Item key="settifs1" icon={<LoginOutlined />}>
+                        <Menu.Item key="exit" icon={<LoginOutlined />}>
                             退出登录
                         </Menu.Item>
                     </Menu>

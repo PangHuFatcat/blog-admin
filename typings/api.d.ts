@@ -1,0 +1,30 @@
+declare namespace API {
+    interface Response<T> {
+
+        code: number
+        msg: string
+        data: T
+    }
+
+    namespace Post {
+        interface Item {
+            title: string
+            content: string
+        }
+
+        interface GetPostRes extends Response<Item[]> {}
+    }
+
+    namespace User {
+        interface Info {
+            name: string
+            icon: string
+        }
+
+        interface Logged {
+            token: string
+        }
+
+        interface PostLoggedRes extends Response<Logged> {}
+    }
+}

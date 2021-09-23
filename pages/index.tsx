@@ -1,110 +1,57 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { Table, Tag, Space } from 'antd'
 import PageLayout from 'components/PageLayout'
 
-import { getPost } from 'api/index'
+import api from 'api/index'
 import { ColumnsType } from 'antd/lib/table'
 
-interface DataItem {
-    key: string
-    name: string
-    age: number
-    address: string
-    tags: string[]
-}
-
-const columns: ColumnsType<DataItem> = [
+const columns: ColumnsType<API.Post.Item> = [
     {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
+        title: '标题',
+        dataIndex: 'title',
+        key: 'title',
         render: (text) => <a>{text}</a>,
     },
     {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
+        title: '内容',
+        dataIndex: 'content',
+        key: 'content',
     },
     {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-    },
-    {
-        title: 'Tags',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: (tags: string[]) => (
-            <>
-                {tags.map((tag) => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green'
-                    if (tag === 'loser') {
-                        color = 'volcano'
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    )
-                })}
-            </>
-        ),
-    },
-    {
-        title: 'Action',
+        title: '操作',
         key: 'action',
-        render: (text, record) => (
+        render: (_, record) => (
             <Space size="middle">
-                <a>Invite {record.name}</a>
+                <a>Invite {record.title}</a>
                 <a>Delete</a>
             </Space>
         ),
     },
 ]
 
-const data: DataItem[] = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-]
-
 const Home: NextPage = () => {
+    const [data, setData] = useState<API.Post.Item[]>([])
+
+    const [loading, setLoading] = useState(false)
+
     useEffect(() => {
         getInfo()
-    })
+    }, [])
 
     const getInfo = useCallback(async () => {
-        try {
-            const res = await getPost()
-            console.log(res, 'res')
-        } catch (err) {
-            console.log('try.catch.getInfo.err: ', err)
-        }
+        setLoading(true)
+
+        const res = await api.post.getPost()
+        if (!res) return
+
+        setData(res)
+        setLoading(false)
     }, [])
 
     return (
         <PageLayout>
-            {/* <p></p> */}
-            <Table columns={columns} dataSource={data} />
+            <Table rowKey="title" loading={loading} columns={columns} dataSource={data} />
         </PageLayout>
     )
 }

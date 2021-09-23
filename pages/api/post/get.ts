@@ -1,13 +1,12 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 import mongodb from 'lib/mongodb'
 
-interface Post {
+export interface Post {
     title: string
     content: string
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Post[]>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<API.Post.GetPostRes>) {
     const client = await mongodb()
 
     const database = client.db('test_db')
@@ -16,5 +15,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     const postArray = await posts.find<Post>({}, { projection: { _id: 0 } }).toArray()
 
-    res.status(200).json(postArray)
+    res.status(200).json({
+        code: 0,
+        msg: '',
+        data: postArray
+    })
 }

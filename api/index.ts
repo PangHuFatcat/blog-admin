@@ -1,12 +1,7 @@
-import request from './request'
+import * as post from './post';
 
-/**
- * 获取帖子列表接口
- *  */
-const getPost = () =>  {
-    return request.get('/api/post/get').json()
+const obj = {
+    post
 }
 
-export {
-    getPost
-}
+export default obj
