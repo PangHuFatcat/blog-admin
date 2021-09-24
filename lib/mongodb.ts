@@ -29,6 +29,7 @@ async function dbPrd(uri: string, options: MongoClientOptions) {
     const client = new MongoClient(uri, options)
 
     try {
+        console.log('连接MongoClient')
         await client.connect()
     } catch (err) {
         console.log('try.catch.dbPrd.err: ', err)
