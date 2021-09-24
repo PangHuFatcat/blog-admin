@@ -3,7 +3,7 @@ import { NextPage } from 'next'
 import { Table, Tag, Space } from 'antd'
 import PageLayout from 'components/PageLayout'
 
-import { getPost } from 'api/index'
+// import { getPost } from 'api/index'
 import { ColumnsType } from 'antd/lib/table'
 
 const Resume: NextPage = () => {

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { NextPage } from 'next'
-import { Table, Tag, Space } from 'antd'
+import { Table, Space } from 'antd'
 import PageLayout from 'components/PageLayout'
 
 import api from 'api/index'
