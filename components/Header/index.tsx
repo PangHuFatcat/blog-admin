@@ -46,7 +46,7 @@ const Header = (props: PropsWithChildren<Props>) => {
             >
                 <div className={styles.item}>
                     <Avatar
-                        size={32}
+                        size={26}
                         src="/images/avatar.jpeg"
                         style={{
                             border: '1px solid #e8e8e8',

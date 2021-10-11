@@ -8,7 +8,7 @@ declare namespace API {
 
     namespace Post {
         interface Item {
-            title: string
+            id: string
             content: string
         }
 

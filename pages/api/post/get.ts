@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import mongodb from 'lib/mongodb'
 
 export interface Post {
-    title: string
+    id: string
     content: string
 }
 
@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     const posts = database.collection<Post>('post')
 
-    const postArray = await posts.find<Post>({}, { projection: { _id: 0 } }).toArray()
+    const postArray = await posts.find<Post>({}).toArray()
 
     res.status(200).json({
         code: 0,
